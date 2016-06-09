@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.List;
@@ -27,17 +28,26 @@ public class RunFromCommondAndFile {
 			}
 		}
 	}
-	
-	public static void runFromFile(String fileName){
-		
+
+	public static void runFromFile(String fileName) {
+
 		File file = new File(fileName);
 		try {
-			FileInputStream fileInputStream = new FileInputStream(file);
-			BufferedReader bufferedReader = new BufferedReader(fileInputStream);
+			FileReader fileReader = new FileReader(file);
+			BufferedReader bufferedReader = new BufferedReader(fileReader);
+			String lineFromFile = "";
+			try {
+				while ((lineFromFile = bufferedReader.readLine()) != null) {
+                     commonParser(lineFromFile);
+				}
+			} catch (IOException e) {
+
+			}
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
-		
+
 	}
 
 	private static void commonParser(String input) {
@@ -111,7 +121,7 @@ public class RunFromCommondAndFile {
 
 	private static void leaveCarFromParking(String[] input) {
 		CarParking.removeCarFromParking(Integer.parseInt(input[1]));
-		System.out.println("Slot number" + input[1] + " is free");
+		System.out.println("Slot number " + input[1] + " is free");
 	}
 
 	private static void parkingStatus(String[] input) {
