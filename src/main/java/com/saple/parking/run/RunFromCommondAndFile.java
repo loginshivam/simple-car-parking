@@ -38,7 +38,7 @@ public class RunFromCommondAndFile {
 			String lineFromFile = "";
 			try {
 				while ((lineFromFile = bufferedReader.readLine()) != null) {
-                     commonParser(lineFromFile);
+					commonParser(lineFromFile);
 				}
 			} catch (IOException e) {
 
@@ -76,12 +76,16 @@ public class RunFromCommondAndFile {
 	}
 
 	private static void createParking(String[] input) {
+		if (input.length < 2)
+			throw new IllegalArgumentException();
 		ParkingUtil.createParkingSlot(Integer.parseInt(input[1]));
 		System.out
 				.println("Created a parking lot with " + input[1] + "  slots");
 	}
 
 	private static void park(String[] input) {
+		if (input.length < 3)
+			throw new IllegalArgumentException();
 		Car car = Car.builder().registrationNumber(input[1]).color(input[2])
 				.build();
 		int num = ParkingSlot.getParkingSlot();
@@ -96,21 +100,25 @@ public class RunFromCommondAndFile {
 	}
 
 	private static void regNumbersByColor(String[] input) {
+		if (input.length < 2)
+			throw new IllegalArgumentException();
 		List<String> list = CarParking.registrationNumberByCarColor(input[1]);
 		if (list != null) {
 			for (String str : list) {
 				System.out.println(str);
 			}
 		}
-
 	}
 
 	private static void slotNumbersByColor(String[] input) {
-
+		if (input.length < 2)
+			throw new IllegalArgumentException();
 		System.out.println(CarParking.parkingSlotsByCarColor((input[1])));
 	}
 
 	private static void slotNumberByRegistrationNumber(String[] input) {
+		if (input.length < 2)
+			throw new IllegalArgumentException();
 		Integer slot = CarParking.slotNumberByRegistrationNumber(input[1]);
 		if (slot == 0)
 			System.out.println("Not found");
@@ -120,6 +128,8 @@ public class RunFromCommondAndFile {
 	}
 
 	private static void leaveCarFromParking(String[] input) {
+		if (input.length < 2)
+			throw new IllegalArgumentException();
 		CarParking.removeCarFromParking(Integer.parseInt(input[1]));
 		System.out.println("Slot number " + input[1] + " is free");
 	}
